@@ -1,9 +1,7 @@
-![Tampilan Connect Novnc](https://res.cloudinary.com/dzsqaauqn/image/upload/v1767425701/Screenshot_2026-01-03_142333_ljsz2l.jpg)
-![Tampilan Login Password Novnc](https://res.cloudinary.com/dzsqaauqn/image/upload/v1767425701/Screenshot_2026-01-03_142448_dwlrci.jpg)
 ![Tampilan Desktop OpenSESU Leap](https://res.cloudinary.com/dzsqaauqn/image/upload/v1767425701/Screenshot_2026-01-03_141947_pefxdv.jpg)
 ---
 
-# Panduan Lengkap: Web-Based Remote Desktop Gateway Fedora WSL (noVNC & Cloudflare)
+# Panduan Lengkap: Web-Based Remote Desktop Gateway Fedora WSL (noVNC & Cloudflare Tunnel)
 
 Panduan ini mencakup instalasi GUI XFCE di Fedora WSL, konfigurasi server VNC, dan penggunaan Docker untuk membuat gateway remote desktop berbasis web yang bisa diakses secara global tanpa port forwarding.
 

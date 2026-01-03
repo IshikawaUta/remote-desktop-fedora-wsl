@@ -1,4 +1,5 @@
-![Tampilan Desktop OpenSESU Leap](https://res.cloudinary.com/dzsqaauqn/image/upload/v1767425701/Screenshot_2026-01-03_141947_pefxdv.jpg)
+![Tampilan Desktop Fedora 43 WSL](https://res.cloudinary.com/dzsqaauqn/image/upload/v1767446448/Screenshot_2026-01-03_201041_emtftk.jpg)
+
 ---
 
 # Panduan Lengkap: Web-Based Remote Desktop Gateway Fedora WSL (noVNC & Cloudflare Tunnel)
@@ -47,12 +48,12 @@ exec startxfce4
 
 ### 3. Menjalankan VNC Server
 
-Bersihkan sisa sesi lama dan jalankan server pada display `:5` (Port 5905):
+Bersihkan sisa sesi lama dan jalankan server pada display `:3` (Port 5903):
 
 ```bash
 vncserver -kill :* 2>/dev/null
 sudo rm -f /tmp/.X*-lock && sudo rm -f /tmp/.X11-unix/X*
-vncserver :5 -geometry 1366x768 -depth 24
+vncserver :3 -geometry 1366x768 -depth 24
 
 ```
 
@@ -73,7 +74,7 @@ services:
       - "6080:8080"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    command: ["--addr", "0.0.0.0:8080", "--host", "host.docker.internal", "--port", "5905", "--no-url-password"]
+    command: ["--addr", "0.0.0.0:8080", "--host", "host.docker.internal", "--port", "5903", "--no-url-password", "--basic-ui"]
     restart: unless-stopped
 
   cloudflare-tunnel:
@@ -104,7 +105,48 @@ Untuk mendapatkan **CLOUDFLARE_TOKEN**, ikuti langkah berikut:
 
 ---
 
-## Bagian 4: Cara Menggunakan
+## Bagian 4: Konfigurasi Cloudflare Access (Authentication)
+
+## 1. Menambahkan Aplikasi
+
+* Buka dashboard **Cloudflare Zero Trust**.
+* Navigasi ke menu **Access** > **Applications**.
+* Klik tombol **Add an Application**.
+* Pilih tipe **Self-hosted**.
+
+## 2. Detail Aplikasi (Application Configuration)
+
+Isi informasi dasar aplikasi sebagai berikut:
+
+| Field | Value |
+| --- | --- |
+| **Application Name** | `Remote Fedora Desktop` |
+| **Session Duration** | `24 Hours` (atau sesuai keinginan) |
+| **Application Domain** | Masukkan subdomain yang sama dengan Cloudflare Tunnel Anda |
+
+## 3. Kebijakan Akses (Policy)
+
+Buat aturan siapa saja yang boleh mengakses aplikasi ini:
+
+* **Action:** `Allow`
+* **Policy Name:** (Contoh: *Allow Personal Email*)
+* **Configure Rules (Include):**
+* **Selector:** `Emails`
+* **Value:** `email-anda@domain.com`
+
+
+
+## 4. Metode Otentikasi
+
+Pastikan metode login sudah disiapkan agar user bisa memverifikasi identitas mereka:
+
+* Buka bagian **Settings** > **Authentication** (Identity Providers).
+* Pastikan **One-time Pin (OTP)** dalam status **Active**.
+* Ini akan mengirimkan kode verifikasi ke email yang Anda daftarkan di bagian Policy setiap kali ingin melakukan login.
+
+---
+
+## Bagian 5: Cara Menggunakan
 
 1. **Siapkan Environment:**
 Buat file `.env` di folder yang sama dengan `docker-compose.yml`:

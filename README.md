@@ -110,6 +110,8 @@ Untuk mendapatkan **CLOUDFLARE_TOKEN**, ikuti langkah berikut:
 
 1. **Siapkan Environment:**
 Buat file `.env` di folder yang sama dengan `docker-compose.yml`:
+
+
 ```bash
 CLOUDFLARE_TOKEN=ISI_DENGAN_TOKEN_DARI_CLOUDFLARE_ANDA
 
@@ -117,6 +119,8 @@ CLOUDFLARE_TOKEN=ISI_DENGAN_TOKEN_DARI_CLOUDFLARE_ANDA
 
 
 2. **Jalankan Docker Stack:**
+
+
 ```bash
 docker-compose up -d
 
